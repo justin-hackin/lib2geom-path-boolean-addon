@@ -1,0 +1,17 @@
+{
+  "name": "lib2geom-path-boolean-addon",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "install": "cmake-js compile",
+    "test": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {},
+  "dependencies": {
+    "bindings": "^1.5.0",
+    "node-addon-api": "^3.0.0"
+  }
+}
