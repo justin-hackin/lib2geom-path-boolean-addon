@@ -11,7 +11,10 @@ execute_process(COMMAND git submodule update --init
 add_subdirectory(lib2geom)
 
 file(GLOB SOURCE_FILES "intersection.cc")
-add_library(${PROJECT_NAME} SHARED ${SOURCE_FILES} ${CMAKE_JS_SRC})
+add_library(${PROJECT_NAME} SHARED ${SOURCE_FILES} ${CMAKE_JS_SRC} lib2geom)
+
+set(POSITION_INDEPENDENT_CODE TRUE)
+
 set_target_properties(${PROJECT_NAME} PROPERTIES 
         PREFIX "" 
         SUFFIX ".node"
