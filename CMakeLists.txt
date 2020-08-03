@@ -11,8 +11,8 @@ include_directories(${CMAKE_JS_INC})
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 file(GLOB SOURCE_FILES "intersection.cc")
-add_library(${PROJECT_NAME} SHARED ${SOURCE_FILES} ${CMAKE_JS_SRC} "lib2geom/src/2geom")
-add_subdirectory("lib2geom/src/2geom")
+add_library(${PROJECT_NAME} SHARED ${SOURCE_FILES} ${CMAKE_JS_SRC})
+add_subdirectory(lib2geom)
 set_target_properties(${PROJECT_NAME} PROPERTIES 
         PREFIX "" 
         SUFFIX ".node"
