@@ -23,7 +23,7 @@ string subtractDValues(char const *pathA, char const *pathB) {
 }
 
 
-Napi::String IntersectPath(const Napi::CallbackInfo& info) {
+Napi::String IntersectPaths(const Napi::CallbackInfo& info) {
   Napi::Env env = info.Env();
 
   if (info.Length() < 2) {
@@ -70,7 +70,7 @@ Napi::String SubtractPaths(const Napi::CallbackInfo& info) {
 
 
 Napi::Object Init(Napi::Env env, Napi::Object exports) {
-  exports.Set(Napi::String::New(env, "intersectPathData"), Napi::Function::New(env, IntersectPath));
+  exports.Set(Napi::String::New(env, "intersectPathData"), Napi::Function::New(env, IntersectPaths));
   exports.Set(Napi::String::New(env, "subtractPathData"), Napi::Function::New(env, SubtractPaths));
   return exports;
 }
