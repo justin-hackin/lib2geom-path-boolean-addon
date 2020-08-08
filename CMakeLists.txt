@@ -3,6 +3,7 @@ cmake_policy(SET CMP0042 NEW)
 set (CMAKE_CXX_STANDARD 11)
 
 project (lib2geom-path-boolean-addon)
+set(2GEOM_STANDALONE TRUE)
 
 # from https://foonathan.net/2016/07/cmake-dependency-handling/
 execute_process(COMMAND git submodule update --init
