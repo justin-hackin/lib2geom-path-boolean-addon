@@ -10,7 +10,7 @@ execute_process(COMMAND git submodule update --init
 include_directories(${CMAKE_JS_INC})
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
-file(GLOB SOURCE_FILES "intersection.cc")
+file(GLOB SOURCE_FILES "boolean.cc")
 add_library(${PROJECT_NAME} SHARED ${SOURCE_FILES} ${CMAKE_JS_SRC})
 
 add_subdirectory(lib2geom EXCLUDE_FROM_ALL)

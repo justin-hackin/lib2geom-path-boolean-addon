@@ -1,7 +1,5 @@
 # lib2geom path boolean N-API addon
 
-**Proof of concept, currently not working.**
-
 Exposes lib2geom boolean path algorithms used in the Inkscape project to a node.js project
 
 ## Installation
