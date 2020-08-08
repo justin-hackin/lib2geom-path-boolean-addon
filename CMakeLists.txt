@@ -3,10 +3,6 @@ cmake_policy(SET CMP0042 NEW)
 set (CMAKE_CXX_STANDARD 11)
 
 project (lib2geom-path-boolean-addon)
-message(STATUS ">>>>>>>>>>>>>>>>>>>>Hoot!!!")
-set(2GEOM_STANDALONE TRUE)
-set(2GEOM_TESTING OFF)
-
 
 # from https://foonathan.net/2016/07/cmake-dependency-handling/
 execute_process(COMMAND git submodule update --init
@@ -16,7 +12,9 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 file(GLOB SOURCE_FILES "intersection.cc")
 add_library(${PROJECT_NAME} SHARED ${SOURCE_FILES} ${CMAKE_JS_SRC})
-add_subdirectory(lib2geom)
+
+add_subdirectory(lib2geom EXCLUDE_FROM_ALL)
+
 set_target_properties(${PROJECT_NAME} PROPERTIES 
         PREFIX "" 
         SUFFIX ".node"
