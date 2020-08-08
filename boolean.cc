@@ -7,21 +7,19 @@
 using namespace Geom;
 using namespace std;
 
+PathIntersectionGraph getIntersectionGraph(char const *pathA, char const *pathB) {
+  return graph(parse_svg_path(pathA), parse_svg_path(pathB));
+}
+
 string intersectDValues(char const *pathA, char const *pathB) {
-  PathVector pathAParsed = parse_svg_path(pathA);
-  PathVector pathBParsed = parse_svg_path(pathB);
-  PathIntersectionGraph graph(pathAParsed, pathBParsed);
-  return Geom::write_svg_path(graph.getIntersection());
+  return Geom::write_svg_path(getIntersectionGraph(pathA, pathB).getIntersection());
 }
 
 
 string subtractDValues(char const *pathA, char const *pathB) {
-  PathVector pathAParsed = parse_svg_path(pathA);
-  PathVector pathBParsed = parse_svg_path(pathB);
-  PathIntersectionGraph graph(pathAParsed, pathBParsed);
-  return Geom::write_svg_path(graph.getAminusB());
-}
+    return Geom::write_svg_path(getIntersectionGraph(pathA, pathB).getAminusB());
 
+}
 
 Napi::String IntersectPaths(const Napi::CallbackInfo& info) {
   Napi::Env env = info.Env();
