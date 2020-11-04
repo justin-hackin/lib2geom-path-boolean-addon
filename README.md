@@ -7,10 +7,10 @@ Exposes lib2geom boolean path algorithms used in the Inkscape project to a node.
 Install cmake-js
 `npm i -g cmake-js`
 
-###Debian-based, e.g. Ubuntu
+### Debian-based, e.g. Ubuntu
 `sudo apt-get install g++ cmake libdouble-conversion-dev libgsl-dev libcairo2-dev`
 
-###Windows (not reccomended, linux can build for Windows)
+### Windows (not reccomended, linux can build for Windows)
 * https://osdn.net/projects/mingw/downloads/68260/mingw-get-setup.exe/ (use to install base and g++)
 * https://sourceforge.net/projects/boost/files/boost/1.55.0/boost_1_55_0.zip/download
 * https://nodejs.org/en/download/
