@@ -4,31 +4,21 @@ set (CMAKE_CXX_STANDARD 11)
 
 project (lib2geom-path-boolean-addon)
 
+set(CMAKE_VERBOSE_MAKEFILE on)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/build.emscripten)
+
 # from https://foonathan.net/2016/07/cmake-dependency-handling/
 execute_process(COMMAND git submodule update --init
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
-include_directories(${CMAKE_JS_INC})
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
-
-file(GLOB SOURCE_FILES "boolean.cc")
-add_library(${PROJECT_NAME} SHARED ${SOURCE_FILES} ${CMAKE_JS_SRC})
 
 add_subdirectory(lib2geom EXCLUDE_FROM_ALL)
 
-set_target_properties(${PROJECT_NAME} PROPERTIES 
-        PREFIX "" 
-        SUFFIX ".node"
-)
-target_link_libraries(${PROJECT_NAME} ${CMAKE_JS_LIB} 2Geom::2geom)
+file(GLOB SOURCE_FILES "boolean.cc")
 
-# Include N-API wrappers
-execute_process(COMMAND node -p "require('node-addon-api').include"
-        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-        OUTPUT_VARIABLE NODE_ADDON_API_DIR
-        )
-string(REPLACE "\n" "" NODE_ADDON_API_DIR ${NODE_ADDON_API_DIR})
-string(REPLACE "\"" "" NODE_ADDON_API_DIR ${NODE_ADDON_API_DIR})
-target_include_directories(${PROJECT_NAME} PRIVATE ${NODE_ADDON_API_DIR})
+add_definitions("-std=c++11")
+target_link_libraries(${PROJECT_NAME} 2Geom::2geom)
+add_executable(client ${SOURCE_FILES})
 
-# define NPI_VERSION
-add_definitions(-DNAPI_VERSION=3)
+set_target_properties(client PROPERTIES COMPILE_FLAGS "-s USE_BOOST_HEADERS=1" LINK_FLAGS "-s USE_BOOST_HEADERS=1")
+
