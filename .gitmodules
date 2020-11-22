@@ -1,3 +1,6 @@
 [submodule "lib2geom"]
 	path = lib2geom
 	url = https://gitlab.com/inkscape/lib2geom.git
+[submodule "double-conversion"]
+	path = double-conversion
+	url = https://github.com/google/double-conversion.git
