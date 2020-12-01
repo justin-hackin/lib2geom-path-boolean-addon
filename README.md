@@ -1,30 +1,46 @@
 # lib2geom path boolean N-API addon
 
-Exposes lib2geom boolean path algorithms used in the Inkscape project to a node.js project
+lib2geom boolean path algorithm wasm port
 
-## Installation
+### Build dependencies in emscripten
+```
+git clone https://github.com/ampl/gsl.git && cd gsl
+# emscripten has issues building  gsl submodule AMPL bindings (arith.h placed as sibling of include folder instead of inside it)
+emcmake cmake . -DNO_AMPL_BINDINGS=ON && make
+cd ..
+git clone https://github.com/google/double-conversion.git 
+cd double-conversion
+emcmake cmake . && make
+cd ..
 
-### As N-API module (recommended)
+# from https://github.com/emscripten-core/emscripten/issues/11066#issuecomment-624636388
+sudo apt install autoconf libtool m4 automake
+pip3 install meson
+export PATH=~/.local/bin/:$PATH
 
-`npm i lib2geom-path-boolean-addon@n-api`
+# VET THIS CODE then follow instructions here
+# https://gist.github.com/kleisauke/acfa1c09522705efa5eb0541d2d00887#file-readme-md
 
-### With post-install build via cmake-js
-
-`npm i -g cmake-js`
-
-##### Debian-based, e.g. Ubuntu
-`sudo apt-get install g++ cmake libdouble-conversion-dev libgsl-dev libcairo2-dev`
-
-##### Windows (not recommended, linux can build for Windows)
-* https://osdn.net/projects/mingw/downloads/68260/mingw-get-setup.exe/ (use to install base and g++)
-* https://sourceforge.net/projects/boost/files/boost/1.55.0/boost_1_55_0.zip/download
-* https://nodejs.org/en/download/
-* https://github.com/wingtk/gvsbuild (dependency: extras installed with nodejs)
-* https://sourceforge.net/projects/gnu-scientific-library-windows/
-
-`npm i lib2geom-path-boolean-addon`
+git clone https://gitlab.com/inkscape/lib2geom.git
+cd cd lib2geom
+emcmake cmake . \
+    -DDoubleConversion_INCLUDE_DIR:PATH=${LIBS_DIR}/double-conversion/ \
+    -DDoubleConversion_LIBRARY:FILEPATH=${LIBS_DIR}/double-conversion/libdouble-conversion.a \
+    -DGLIB_INCLUDE_DIR:PATH=${LIBS_DIR}/glib-emscripten/target/include \
+    -DGLIB_LIBRARY:FILEPATH=${LIBS_DIR}/glib-emscripten/target/lib/libglib-2.0.a \
+    -DGSL_INCLUDE_DIR:PATH=${LIBS_DIR}/gsl \
+    -DGSL_LIBRARY:FILEPATH=${LIBS_DIR}/gsl/libgsl.a \
+    -DGSL_CBLAS_LIBRARY:FILEPATH=${LIBS_DIR}/gsl/libgslcblas.a \
+    -D2GEOM_TESTING=OFF \
+    -DCMAKE_CXX_FLAGS="-sUSE_BOOST_HEADERS=1" \
+    -DCMAKE_C_FLAGS="-sUSE_BOOST_HEADERS=1" \
+&& make
+cd ..
+```
 
 ## API
+
+These are the same algorithms that power [Inkscape path boolean features](https://www.youtube.com/watch?v=RpWBhu7T13k)
 
 ### intersectPathData
 Given 2 strings which are svg <path> d-attributes, returns the d-attribute for the intersection of the two paths
