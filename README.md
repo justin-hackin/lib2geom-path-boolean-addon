@@ -38,6 +38,17 @@ emcmake cmake . \
 cd ..
 ```
 
+## Build command trials
+
+```
+emcc -L ../lib2geom/build/src/2geom -I ../lib2geom/include -s LLD_REPORT_UNDEFINED boolean.cc
+# lib2geom target built with emscripten
+# emcc -L ../lib2geom/build/src/2geom -I ../lib2geom/include -s LLD_REPORT_UNDEFINED boolean.cc
+# lib2geom target built with gcc
+gcc -L ../inkscape-lib2geom/build/src/2geom -I ../inkscape-lib2geom/include boolean.cc
+
+```
+
 ## API
 
 These are the same algorithms that power [Inkscape path boolean features](https://www.youtube.com/watch?v=RpWBhu7T13k)
@@ -57,3 +68,4 @@ const intersection = intersectPathData('M0,0 L10,0 L10,10 L0,10 Z', 'M5,5 L15,5,
 
 const subtraction = intersectPathData('M0,0 L10,0 L10,10 L0,10 Z', 'M5,5 L15,5, L15,15 L5,15 Z');
 ```
+

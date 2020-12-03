@@ -1,4 +1,4 @@
-#include <stdio.h>
+#include <iostream>
 #include <string>
 #include <cstring>
 
@@ -26,6 +26,6 @@ string subtractDValues(char const *pathA, char const *pathB) {
 int main() {
   const char d1[] = "M0,0 L10,0 L10,10 L0,10 Z";
   const char d2[] = "M5,5 L15,5, L15,15 L5,15 Z";
-  cout << intersectDValues(d1, d2);
+  cout << intersectDValues(d1, d2) << endl;
   return 0;
 }
