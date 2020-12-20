@@ -2,6 +2,9 @@
 
 Exposes lib2geom boolean path algorithms used in the Inkscape project to a node.js project
 
+_WARNING: this library is experimental and not recommended for production use. It is proving difficult to build on Windows.
+Exploring wasm compilation in the wasm branch without success yet._
+
 ## Installation
 
 ### As N-API module (recommended)
@@ -15,7 +18,7 @@ Exposes lib2geom boolean path algorithms used in the Inkscape project to a node.
 ##### Debian-based, e.g. Ubuntu
 `sudo apt-get install g++ cmake libdouble-conversion-dev libgsl-dev libcairo2-dev`
 
-##### Windows (not recommended, linux can build for Windows)
+##### Windows (not recommended, see See [lib2geom issue](https://gitlab.com/inkscape/lib2geom/-/issues/37))
 * https://osdn.net/projects/mingw/downloads/68260/mingw-get-setup.exe/ (use to install base and g++)
 * https://sourceforge.net/projects/boost/files/boost/1.55.0/boost_1_55_0.zip/download
 * https://nodejs.org/en/download/
@@ -32,12 +35,15 @@ Given 2 strings which are svg <path> d-attributes, returns the d-attribute for t
 ### subtractPathData
 Given 2 strings which are svg <path> d-attributes, returns the d-attribute for the difference of the two paths
 
+### unifyPathData
+Given 2 strings which are svg <path> d-attributes, returns the d-attribute for the union of the two paths
+
 ## Usage
 
 ```js
-const { intersectPathData, subtractPathData } = require('lib2geom-path-boolean-addon');
+const { intersectPathData, subtractPathData, unifyPathData } = require('lib2geom-path-boolean-addon');
 
 const intersection = intersectPathData('M0,0 L10,0 L10,10 L0,10 Z', 'M5,5 L15,5, L15,15 L5,15 Z');
-
-const subtraction = intersectPathData('M0,0 L10,0 L10,10 L0,10 Z', 'M5,5 L15,5, L15,15 L5,15 Z');
+const subtraction = subtractPathData('M0,0 L10,0 L10,10 L0,10 Z', 'M5,5 L15,5, L15,15 L5,15 Z');
+const union = unifyPathData('M0,0 L10,0 L10,10 L0,10 Z', 'M5,5 L15,5, L15,15 L5,15 Z');
 ```

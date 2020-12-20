@@ -22,6 +22,13 @@ string subtractDValues(char const *pathA, char const *pathB) {
   return Geom::write_svg_path(graph.getAminusB());
 }
 
+string unifyDValues(char const *pathA, char const *pathB) {
+  PathVector pathAParsed = parse_svg_path(pathA);
+  PathVector pathBParsed = parse_svg_path(pathB);
+  PathIntersectionGraph graph(pathAParsed, pathBParsed);
+  return Geom::write_svg_path(graph.getUnion());
+}
+
 
 Napi::String IntersectPaths(const Napi::CallbackInfo& info) {
   Napi::Env env = info.Env();
@@ -45,7 +52,6 @@ Napi::String IntersectPaths(const Napi::CallbackInfo& info) {
   return intersection;
 }
 
-
 Napi::String SubtractPaths(const Napi::CallbackInfo& info) {
   Napi::Env env = info.Env();
 
@@ -68,10 +74,34 @@ Napi::String SubtractPaths(const Napi::CallbackInfo& info) {
   return subtraction;
 }
 
+Napi::String UnifyPaths(const Napi::CallbackInfo& info) {
+  Napi::Env env = info.Env();
+
+  if (info.Length() < 2) {
+    Napi::TypeError::New(env, "Wrong number of arguments")
+        .ThrowAsJavaScriptException();
+    // though suggested in example, the following line leads to compiler errors
+    // return env.Null();
+  }
+
+  if (!info[0].IsString() || !info[1].IsString()) {
+    Napi::TypeError::New(env, "Wrong arguments").ThrowAsJavaScriptException();
+    // return env.Null();
+  }
+
+  string arg0 = info[0].As<Napi::String>().Utf8Value();
+  string arg1 = info[1].As<Napi::String>().Utf8Value();
+  Napi::String unification = Napi::String::New(env, unifyDValues(arg0.c_str(), arg1.c_str()));
+
+  return unification;
+}
+
 
 Napi::Object Init(Napi::Env env, Napi::Object exports) {
   exports.Set(Napi::String::New(env, "intersectPathData"), Napi::Function::New(env, IntersectPaths));
   exports.Set(Napi::String::New(env, "subtractPathData"), Napi::Function::New(env, SubtractPaths));
+  exports.Set(Napi::String::New(env, "unifyPathData"), Napi::Function::New(env, UnifyPaths));
+
   return exports;
 }
 
