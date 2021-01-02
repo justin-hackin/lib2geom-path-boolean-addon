@@ -1,5 +1,5 @@
 
-_ABANDONED: this project is abandoned in favor of [paper.js](https://github.com/paperjs/paper.js) boolean operations. This does necessitates some bloat of canvas-related rendering code as per [this issue](https://github.com/paperjs/paper.js/issues/1325)._
+_ABANDONED: this project is abandoned in favor of [paper.js](https://github.com/paperjs/paper.js) boolean operations. This does necessitate some bloat of canvas-related rendering code as per [this issue](https://github.com/paperjs/paper.js/issues/1325)._
 
 # lib2geom path boolean N-API addon
 
