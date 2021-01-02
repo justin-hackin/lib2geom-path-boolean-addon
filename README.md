@@ -1,9 +1,12 @@
+
+_ABANDONED: this project is abandoned in favor of [paper.js](https://github.com/paperjs/paper.js) boolean operations. This does necessitates some bloat of canvas-related rendering code as per [this issue](https://github.com/paperjs/paper.js/issues/1325)._
+
 # lib2geom path boolean N-API addon
 
 Exposes lib2geom boolean path algorithms used in the Inkscape project to a node.js project
 
 _WARNING: this library is experimental and not recommended for production use. It is proving difficult to build on Windows.
-Exploring wasm compilation in the wasm branch without success yet._
+Explored wasm compilation in the wasm branch without success yet._
 
 ## Installation
 
