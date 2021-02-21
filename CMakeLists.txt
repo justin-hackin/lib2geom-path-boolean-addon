@@ -12,11 +12,14 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 file(GLOB SOURCE_FILES "boolean.cc")
 add_library(${PROJECT_NAME} SHARED ${SOURCE_FILES} ${CMAKE_JS_SRC})
+message(STATUS 'DIR: ${PROJECT_SOURCE_DIR}')
+set (DoubleConversion_LIBRARYDIR "${PROJECT_SOURCE_DIR}/double-conversion")
+set (DoubleConversion_INCLUDEDIR "${PROJECT_SOURCE_DIR}/double-conversion")
 
 add_subdirectory(lib2geom EXCLUDE_FROM_ALL)
 
-set_target_properties(${PROJECT_NAME} PROPERTIES 
-        PREFIX "" 
+set_target_properties(${PROJECT_NAME} PROPERTIES
+        PREFIX ""
         SUFFIX ".node"
 )
 target_link_libraries(${PROJECT_NAME} ${CMAKE_JS_LIB} 2Geom::2geom)
